@@ -1,0 +1,48 @@
+{
+  "name": "aliimagepull",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AliImagePull macOS Electron app for deterministic AliExpress image extraction and download",
+  "main": "apps/electron-main/dist/main.js",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run build -w @aliimagepull/core && npm run build -w @aliimagepull/electron-main && concurrently -k \"npm run dev -w @aliimagepull/renderer\" \"wait-on tcp:5173 && RENDERER_DEV_URL=http://localhost:5173 env -u ELECTRON_RUN_AS_NODE electron apps/electron-main/dist/main.js\"",
+    "build": "npm run build -w @aliimagepull/core && npm run build -w @aliimagepull/renderer && npm run build -w @aliimagepull/electron-main",
+    "test": "npm run test -w @aliimagepull/core",
+    "package": "npm run build && electron-builder --mac dmg"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "concurrently": "9.2.1",
+    "cross-env": "10.1.0",
+    "electron": "40.4.1",
+    "electron-builder": "26.0.20",
+    "esbuild": "0.25.12",
+    "typescript": "5.9.3",
+    "vitest": "3.2.4",
+    "wait-on": "9.0.3"
+  },
+  "build": {
+    "appId": "com.aliimagepull.app",
+    "productName": "AliImagePull",
+    "files": [
+      "apps/electron-main/dist/**/*",
+      "apps/renderer/dist/**/*",
+      "packages/core/dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.utilities"
+    },
+    "directories": {
+      "output": "release"
+    }
+  }
+}
