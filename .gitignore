@@ -5,3 +5,4 @@ release
 playwright-report
 coverage
 *.log
+build/icons/*.iconset
