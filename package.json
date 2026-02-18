@@ -12,7 +12,8 @@
     "dev": "npm run build -w @aliimagepull/core && npm run build -w @aliimagepull/electron-main && concurrently -k \"npm run dev -w @aliimagepull/renderer\" \"wait-on tcp:5173 && RENDERER_DEV_URL=http://localhost:5173 env -u ELECTRON_RUN_AS_NODE electron apps/electron-main/dist/main.js\"",
     "build": "npm run build -w @aliimagepull/core && npm run build -w @aliimagepull/renderer && npm run build -w @aliimagepull/electron-main",
     "test": "npm run test -w @aliimagepull/core",
-    "package": "npm run build && electron-builder --mac dmg"
+    "package": "npm run build && electron-builder --mac dmg --publish never",
+    "icon:mac": "./scripts/make-mac-icon.sh"
   },
   "devDependencies": {
     "@types/node": "24.10.1",
@@ -39,7 +40,11 @@
       "target": [
         "dmg"
       ],
-      "category": "public.app-category.utilities"
+      "category": "public.app-category.utilities",
+      "icon": "build/icons/AliImagePull.icns"
+    },
+    "dmg": {
+      "icon": "build/icons/AliImagePull.icns"
     },
     "directories": {
       "output": "release"

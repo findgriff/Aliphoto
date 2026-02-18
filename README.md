@@ -45,6 +45,17 @@ npm run package
 ```
 Output goes to `release/`.
 
+## Set macOS app icon
+1. Put your icon image on disk (recommended 1024x1024 PNG).
+2. Generate `.icns`:
+```bash
+npm run icon:mac -- /absolute/path/to/icon.png
+```
+3. Rebuild package:
+```bash
+npm run package
+```
+
 ## Workspace layout
 - `apps/electron-main`: Electron main + preload
 - `apps/renderer`: Vite + React renderer UI
